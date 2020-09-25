@@ -33,15 +33,16 @@
 								<div class="logo text-center"><img src="{{ asset('admin/assets/img/logo-dark.png') }}" alt="Klorofil Logo"></div>
 								<p class="lead">Login to your account</p>
 							</div>
-							<form class="form-auth-small" action="index.php">
+                            <form class="form-auth-small" action="/postlogin" method="POST">
+                                {{ csrf_field() }}
 								<div class="form-group">
 									<label for="signin-email" class="control-label sr-only">Email</label>
-									<input type="email" class="form-control" id="signin-email" placeholder="Email">
+									<input type="email" class="form-control" id="signin-email" placeholder="Email" name="email">
 								</div>
 								<div class="form-group">
 									<label for="signin-password" class="control-label sr-only">Password</label>
                                     <input type="password" class="form-control" id="signin-password"
-                                    placeholder="Password">
+                                    placeholder="Password" name="password">
 								</div>
 								<div class="form-group clearfix">
 									<label class="fancy-checkbox element-left">
@@ -59,8 +60,8 @@
 					<div class="right">
 						<div class="overlay"></div>
 						<div class="content text">
-							<h1 class="heading">Aplikasi Ngarang aja</h1>
-							<p>by The Develovers engga guna</p>
+							<h1 class="heading">Aplikasi Pengelolaan Data Siswa</h1>
+							<p>by The Develovers Deni-Khz</p>
 						</div>
 					</div>
 					<div class="clearfix"></div>
