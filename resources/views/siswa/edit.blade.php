@@ -44,7 +44,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Avatar</label>
-                                    <input type="file" class="form-control" aria-describedby="emailHelp" name="avatar>
+                                    <input type="file" class="form-control" aria-describedby="emailHelp" name="avatar">
                                     <small id="emailHelp" class="form-text text-muted"></small>
                                 </div>
                                     <button type="submit" class="btn btn-warning">Update</button>
