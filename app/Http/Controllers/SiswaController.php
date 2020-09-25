@@ -31,6 +31,7 @@ class SiswaController extends Controller
 
     public function update(Request $request, $id)
     {
+        // dd($request->all());
         $siswa = \App\Siswa::find($id);
         $siswa->update($request->all());
         return redirect('/siswa')->with('sukses', 'Data Berhasil Diupdate');
@@ -41,5 +42,11 @@ class SiswaController extends Controller
         $siswa = \App\Siswa::find($id);
         $siswa->delete();
         return redirect('/siswa')->with('delete', 'Data Berhasil Dihapus');
+    }
+
+    public function profile($id)
+    {
+        $siswa = \App\Siswa::find($id);
+        return view('siswa.profile', ['siswa' => $siswa]);
     }
 }
