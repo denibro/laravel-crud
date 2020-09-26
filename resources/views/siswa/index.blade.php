@@ -78,6 +78,11 @@
                     <small id="emailHelp" class="form-text text-muted"></small>
                 </div>
                 <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Email" name="email">
+                    <small id="emailHelp" class="form-text text-muted"></small>
+                </div>
+                <div class="form-group">
                     <label for="exampleFormControlSelect1">Jenis Kelamin</label>
                     <select class="form-control" id="exampleFormControlSelect1" name="jenis_kelamin">
                     <option value="L">Laki Laki</option>

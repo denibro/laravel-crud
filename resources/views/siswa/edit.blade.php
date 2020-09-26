@@ -48,7 +48,7 @@
                                     <small id="emailHelp" class="form-text text-muted"></small>
                                 </div>
                                     <button type="submit" class="btn btn-warning">Update</button>
-                                    <a href="/siswa" class="btn btn-info btn-md">Cencel</a>
+                                    <a href="/siswa/{{ $siswa->id }}/profile" class="btn btn-info btn-md">Cencel</a>
                             </form>
                         </div>
                     </div>
