@@ -10,7 +10,7 @@
         </div>
         <form class="navbar-form navbar-left" action="/siswa" method="GET">
             <div class="input-group">
-                <input type="text" value="" class="form-control" placeholder="Search dashboard..." name="cari">
+                <input type="text" value="" class="form-control" placeholder="Search Nama Depan siswa" name="cari">
                 <span class="input-group-btn"><button type="button" class="btn btn-primary">Go</button></span>
             </div>
         </form>

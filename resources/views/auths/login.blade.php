@@ -61,7 +61,7 @@
 						<div class="overlay"></div>
 						<div class="content text">
 							<h1 class="heading">Aplikasi Pengelolaan Data Siswa</h1>
-							<p>by The Develovers Deni-Khz</p>
+							<p>by The Develovers Deni-Kzh</p>
 						</div>
 					</div>
 					<div class="clearfix"></div>
