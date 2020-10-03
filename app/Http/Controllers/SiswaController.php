@@ -13,7 +13,7 @@ class SiswaController extends Controller
         if ($request->has('cari')) {
             $data_siswa = \App\Siswa::where('nama_depan', 'LIKE', '%' . $request->cari . '%')->get();
         } else {
-            $data_siswa = \App\Siswa::all();
+            $data_siswa = \App\Siswa::all()->sortByDesc('id');
         }
         return view('siswa.index', ['data_siswa' => $data_siswa]);
     }
@@ -24,7 +24,7 @@ class SiswaController extends Controller
 
         // inset ke tabel user
         $user = new \App\User;
-        $user->role = 'siswa';
+        $user->role = $request->role;
         $user->name = $request->nama_depan;
         $user->email = $request->email;
         $user->password = bcrypt('rahasia');
@@ -66,6 +66,38 @@ class SiswaController extends Controller
     public function profile($id)
     {
         $siswa = \App\Siswa::find($id);
-        return view('siswa.profile', ['siswa' => $siswa]);
+        $matapelajaran = \App\Mapel::all();
+
+        // menyiapkan data untuk chart
+        $categories = [];
+        $data = [];
+
+        foreach ($matapelajaran as $mp) {
+            if ($siswa->mapel()->wherePivot('mapel_id', $mp->id)->first()) {
+                $categories[] = $mp->nama;
+                $data[] = $siswa->mapel()->wherePivot('mapel_id', $mp->id)->first()->pivot->nilai;
+            }
+        }
+        // dd($data);
+        // dd(json_encode($categories));
+
+        return view('siswa.profile', ['siswa' => $siswa, 'matapelajaran' => $matapelajaran, 'categories' => $categories, 'data' => $data]);
+    }
+
+    public function addnilai(Request $request, $idsiswa)
+    {
+        $siswa = \App\Siswa::find($idsiswa);
+        if ($siswa->mapel()->where('mapel_id', $request->mapel)->exists()) {
+            return redirect('siswa/' . $idsiswa . '/profile')->with('error', 'Mata Pelajaran Sudah pernah dimasukan');
+        }
+        $siswa->mapel()->attach($request->mapel, ['nilai' => $request->nilai]);
+        return redirect('siswa/' . $idsiswa . '/profile')->with('sukses', 'Nilai Berhasil Dimasukan');
+    }
+
+    public function deletenilai($idsiswa, $idmapel)
+    {
+        $siswa = \App\Siswa::find($idsiswa);
+        $siswa->mapel()->detach($idmapel);
+        return redirect()->back()->with('error', 'Data Nilai Berhasil Dihapus');
     }
 }

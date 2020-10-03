@@ -5,9 +5,13 @@
 <div class="main">
     <div class="main-content">
         <div class="container-fluid">
+            @if (session('sukses'))
+            <div class="alert alert-success" role="alert">
+                {{ session('sukses') }}
+            </div>
+            @endif
             <div class="row">
                 <div class="col-md-12">
-                    <!-- akhir Button trigger modal -->
                     <div class="panel">
                         <div class="panel-heading">
                             <div class="container">
@@ -17,31 +21,43 @@
                                 <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal">&nbsp&nbsp&nbspTambah Data Siswa &nbsp&nbsp<i class="lnr lnr-pencil"></i></button>
                             </div>
                         </div>
+
                         <div class="panel-body">
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
+                                        <th>NO</th>
                                         <th>NAMA DEPAN</th>
                                         <th>NAMA BELAKANG</th>
                                         <th>JENIS KELAMIN</th>
                                         <th>AGAMA</th>
                                         <th>ALAMAT</th>
-                                        <th>AKSI</th>
+                                        <th>Rata Rata Nilai</th>
+                                        <th class="text-center">AKSI</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+
+                                    @php
+                                        $nomor = 1;
+                                    @endphp
                                     @foreach ($data_siswa as $siswa )
                                     <tr>
-                                        <td><a href="/siswa/{{ $siswa->id }}/profile">{{ $siswa->nama_depan }}</a></td>
-                                        <td><a href="/siswa/{{ $siswa->id }}/profile">{{ $siswa->nama_belakang }}</a></td>
+                                        <td>{{ $nomor }}</td>
+                                        <td>{{ $siswa->nama_depan }}</td>
+                                        <td>{{ $siswa->nama_belakang }}</td>
                                         <td>{{ $siswa->jenis_kelamin }}</td>
                                         <td>{{ $siswa->agama }}</td>
                                         <td>{{ $siswa->alamat }}</td>
-                                        <td>
+                                        <td>{{ $siswa->rataRataNilai() }}</td>
+                                        <td class="text-center">
                                             <a href="/siswa/{{ $siswa->id }}/profile" class="btn btn-primary btn-sm">Profil</a>
                                             <a href="/siswa/{{ $siswa->id }}/edit" class="btn btn-warning btn-sm">Edit</a>
                                             <a href="/siswa/{{ $siswa->id }}/delete" class="btn btn-danger btn-sm" onclick="return confirm('Yakin Mau Hapus..?')">Hapus</a></td>
                                     </tr>
+                                    @php
+                                    $nomor++;
+                                    @endphp
                                     @endforeach
                                 </tbody>
                             </table>
@@ -53,7 +69,7 @@
     </div>
 </div>
 
-<!-- Modal -->
+<!-- Modal siswa -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -83,6 +99,12 @@
                     <small id="emailHelp" class="form-text text-muted"></small>
                 </div>
                 <div class="form-group">
+                    <label for="role">Role</label>
+                    <select class="form-control" id="role" name="role">
+                    <option value="siswa">Siswa</option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="exampleFormControlSelect1">Jenis Kelamin</label>
                     <select class="form-control" id="exampleFormControlSelect1" name="jenis_kelamin">
                     <option value="L">Laki Laki</option>
@@ -108,8 +130,7 @@
         </div>
     </div>
 </div>
-<!-- akhir Modal -->
-
+<!-- akhir Modal siswa -->
 
 @endsection
 
