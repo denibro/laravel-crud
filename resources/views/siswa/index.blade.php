@@ -18,6 +18,8 @@
                             <h3 class="panel-title">Data Siswa</h3>
                             </div>
                             <div class="right">
+                                <a href="/siswa/exportExcel" class="btn btn-primary btn-sm">Export Excel</a>
+                                <a href="/siswa/exportpdf" class="btn btn-primary btn-sm">Export PDF</a>
                                 <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal">&nbsp&nbsp&nbspTambah Data Siswa &nbsp&nbsp<i class="lnr lnr-pencil"></i></button>
                             </div>
                         </div>
