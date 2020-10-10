@@ -8,12 +8,14 @@
         <div class="navbar-btn">
             <button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
         </div>
+        @if (auth()->user()->role == 'master' || auth()->user()->role == 'admin')
         <form class="navbar-form navbar-left" action="/siswa" method="GET">
             <div class="input-group">
                 <input type="text" value="" class="form-control" placeholder="Search Nama Depan siswa" name="cari">
                 <span class="input-group-btn"><button type="submit" class="btn btn-primary">Go</button></span>
             </div>
         </form>
+        @endif
         <div id="navbar-menu">
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">

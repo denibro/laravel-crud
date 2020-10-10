@@ -14,7 +14,7 @@
                             <h3 class="panel-title">Update Data Siswa</h3>
                         </div>
                         <div class="panel-body">
-                            <form action="/siswa/{{ $siswa->id }}/update" method="POST" enctype="multipart/form-data">
+                            <form action="/siswa/{{ $siswa->id }}/{{ $siswa->user->id }}/update" method="POST" enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 <div class="form-group">
                                     <label for="namadepan">Nama Depan</label>
@@ -24,6 +24,11 @@
                                 <div class="form-group">
                                     <label for="namabelakang">Nama Belakang</label>
                                     <input type="text" class="form-control" id="namabelakang" aria-describedby="emailHelp" placeholder="Nama Belakang" name="nama_belakang" value="{{ $siswa->nama_belakang }}">
+                                    <small id="emailHelp" class="form-text text-muted"></small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="text" class="form-control" id="email" aria-describedby="emailHelp" placeholder="email" name="email" value="{{ $siswa->user->email }}">
                                     <small id="emailHelp" class="form-text text-muted"></small>
                                 </div>
                                 <div class="form-group">
@@ -61,7 +66,7 @@
 @stop
 
 
-@section('content1')
+{{--  @section('content1')
 
     <h1>Edit Data Siswa</h1>
     @if (session('sukses'))
@@ -106,7 +111,7 @@
         </div>
     </div>
 
-@endsection
+@endsection  --}}
 
 
 

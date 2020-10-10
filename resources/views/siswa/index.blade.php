@@ -9,6 +9,14 @@
             <div class="alert alert-success" role="alert">
                 {{ session('sukses') }}
             </div>
+            @elseif (session('delete'))
+            <div class="alert alert-danger" role="alert">
+                {{ session('delete') }}
+            </div>
+            @elseif (session('updatepasssiswa'))
+            <div class="alert alert-success" role="alert">
+                {{ session('updatepasssiswa') }}
+            </div>
             @endif
             <div class="row">
                 <div class="col-md-12">
@@ -55,7 +63,9 @@
                                         <td class="text-center">
                                             <a href="/siswa/{{ $siswa->id }}/profile" class="btn btn-primary btn-sm">Profil</a>
                                             <a href="/siswa/{{ $siswa->id }}/edit" class="btn btn-warning btn-sm">Edit</a>
-                                            <a href="/siswa/{{ $siswa->id }}/delete" class="btn btn-danger btn-sm" onclick="return confirm('Yakin Mau Hapus..?')">Hapus</a></td>
+                                            <a href="#" class="btn btn-danger btn-sm delete" siswa-id="{{ $siswa->id }}" siswa-nama="{{ $siswa->nama_lengkap() }}">Hapus</a>
+                                            <a href="/siswa/{{ $siswa->id }}/rubahpassword" class="btn btn-success btn-sm">Pass</a>
+                                        </td>
                                     </tr>
                                     @php
                                     $nomor++;
@@ -125,7 +135,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-success">Submit</button>
+                    <button type="submit" class="btn btn-success">Tambah</button>
                     <button type="button" class="btn btn-info" data-dismiss="modal">Cencel</button>
                 </div>
             </form>
@@ -135,6 +145,32 @@
 <!-- akhir Modal siswa -->
 
 @endsection
+
+
+@section('footer')
+    <script>
+        $('.delete').click(function(){
+            var siswa_id = $(this).attr('siswa-id');
+            var siswa_nama = $(this).attr('siswa-nama');
+            swal({
+                    title: "Yakin?",
+                    text: ""+siswa_nama+" Mau Di Hapus !!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                    .then((willDelete) => {
+                    if (willDelete) {
+                        window.location = "/siswa/"+siswa_id+"/delete";
+                    }
+                });
+        });
+    </script>
+@stop
+
+
+
+
 
 {{--  @section('content1')
 

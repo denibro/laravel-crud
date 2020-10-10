@@ -16,7 +16,12 @@
 	<!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
 	<link rel="stylesheet" href="{{asset('admin/assets/css/demo.css')}}">
 	<!-- GOOGLE FONTS -->
-	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+
+    // toastr
+    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+    // akhir toastr
+
 	<!-- ICONS -->
 	<link rel="apple-touch-icon" sizes="76x76" href="{{asset('admin/assets/img/apple-icon.png')}}">
     <link rel="icon" type="image/png" sizes="96x96" href="{{asset('admin/assets/img/favicon.png')}}">
@@ -59,6 +64,71 @@
 	<script src="{{asset('admin/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js')}}"></script>
 	<script src="{{asset('admin/assets/vendor/chartist/js/chartist.min.js')}}"></script>
     <script src="{{asset('admin/assets/scripts/klorofil-common.js')}}"></script>
+
+    {{--  // sweatalert  --}}
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    {{--  // akhir sweatalert  --}}
+
+    {{--  // toastr  --}}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+        {{--  // delete siswa  --}}
+        <script>
+            @if (Session::has('delete'))
+                toastr.error("{{ Session::get('delete') }}", "Berhasil")
+            @endif
+        </script>
+        {{--  // akhir delete siswa  --}}
+        {{--  // tambah siswa --}}
+        <script>
+            @if (Session::has('sukses'))
+                toastr.success("{{ Session::get('sukses') }}", "Berhasil")
+            @endif
+        </script>
+        {{--  // akhir tambah siswa  --}}
+        {{--  // deletenilaimapel  --}}
+        <script>
+            @if (Session::has('deletenilaimapel'))
+                toastr.error("{{ Session::get('deletenilaimapel') }}", "Berhasil")
+            @endif
+        </script>
+        {{--  // akhir deletenilaimapel  --}}
+        {{--  // deleteadmin  --}}
+        <script>
+            @if (Session::has('deleteadmin'))
+                toastr.error("{{ Session::get('deleteadmin') }}", "Berhasil")
+            @endif
+        </script>
+        {{--  // akhir deleteadmin  --}}
+        {{--  // tambahadmin  --}}
+        <script>
+            @if (Session::has('tambahadmin'))
+                toastr.success("{{ Session::get('tambahadmin') }}", "Berhasil")
+            @endif
+        </script>
+        {{--  // akhir tambahadmin  --}}
+        {{--  // updateadmin  --}}
+        <script>
+            @if (Session::has('updateadmin'))
+                toastr.success("{{ Session::get('updateadmin') }}", "Berhasil")
+            @endif
+        </script>
+        {{--  // akhir updateadmin  --}}
+        {{--  // updatepassadmin  --}}
+        <script>
+            @if (Session::has('updatepassadmin'))
+                toastr.success("{{ Session::get('updatepassadmin') }}", "Berhasil")
+            @endif
+        </script>
+        {{--  // akhir updatepassadmin  --}}
+        {{--  // updatepasssiswa  --}}
+        <script>
+        @if (Session::has('updatepasssiswa'))
+                toastr.success("{{ Session::get('updatepasssiswa') }}", "Berhasil")
+            @endif
+        </script>
+        {{--  // akhir updatepasssiswa  --}}
+    {{--  // akhir toastr  --}}
+
     @yield('footer')
 
 

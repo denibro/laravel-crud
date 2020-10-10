@@ -36,4 +36,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function admin()
+    {
+        return $this->hasOne('App\Admin');
+    }
+
+    public function siswa()
+    {
+        return $this->hasOne('App\Siswa');
+    }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 }

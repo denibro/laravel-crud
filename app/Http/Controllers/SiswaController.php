@@ -38,7 +38,7 @@ class SiswaController extends Controller
         // inset ke tabel siswa
         $request->request->add(['user_id' => $user->id]);
         $siswa = \App\Siswa::create($request->all());
-        return redirect('/siswa')->with('sukses', 'Data Berhasil Ditambahkan');
+        return redirect('/siswa')->with('sukses', 'Data Siswa Berhasil Ditambahkan');
     }
 
     public function edit($id)
@@ -47,17 +47,23 @@ class SiswaController extends Controller
         return view('siswa.edit', ['siswa' => $siswa]);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $idsiswa, $iduser)
     {
         // dd($request->all());
-        $siswa = \App\Siswa::find($id);
+        $siswa = \App\Siswa::find($idsiswa);
         $siswa->update($request->all());
         if ($request->hasfile('avatar')) {
             $request->file('avatar')->move('images/', $request->file('avatar')->getClientOriginalName());
             $siswa->avatar = $request->file('avatar')->getClientOriginalName();
             $siswa->save();
         }
-        return redirect('/siswa')->with('sukses', 'Data Berhasil Diupdate');
+
+        // update tabel users
+        $user = \App\User::find($iduser);
+        $user->update([
+            'email' => $request->email
+        ]);
+        return redirect('/dashboard')->with('sukses', 'Data Berhasil Diupdate');
     }
 
     public function delete($id)
@@ -69,23 +75,27 @@ class SiswaController extends Controller
 
     public function profile($id)
     {
-        $siswa = \App\Siswa::find($id);
-        $matapelajaran = \App\Mapel::all();
+        if (auth()->user()->role == 'siswa') {
 
-        // menyiapkan data untuk chart
-        $categories = [];
-        $data = [];
+            $user = \App\User::find($id);
+            $siswa = $user->siswa;
+            return view('siswa.profile', ['siswa' => $siswa]);
+        } else {
+            $siswa = \App\Siswa::find($id);
+            $matapelajaran = \App\Mapel::all();
 
-        foreach ($matapelajaran as $mp) {
-            if ($siswa->mapel()->wherePivot('mapel_id', $mp->id)->first()) {
-                $categories[] = $mp->nama;
-                $data[] = $siswa->mapel()->wherePivot('mapel_id', $mp->id)->first()->pivot->nilai;
+            // menyiapkan data untuk chart
+            $categories = [];
+            $data = [];
+
+            foreach ($matapelajaran as $mp) {
+                if ($siswa->mapel()->wherePivot('mapel_id', $mp->id)->first()) {
+                    $categories[] = $mp->nama;
+                    $data[] = $siswa->mapel()->wherePivot('mapel_id', $mp->id)->first()->pivot->nilai;
+                }
             }
+            return view('siswa.profile', ['siswa' => $siswa, 'matapelajaran' => $matapelajaran, 'categories' => $categories, 'data' => $data]);
         }
-        // dd($data);
-        // dd(json_encode($categories));
-
-        return view('siswa.profile', ['siswa' => $siswa, 'matapelajaran' => $matapelajaran, 'categories' => $categories, 'data' => $data]);
     }
 
     public function addnilai(Request $request, $idsiswa)
@@ -102,7 +112,7 @@ class SiswaController extends Controller
     {
         $siswa = \App\Siswa::find($idsiswa);
         $siswa->mapel()->detach($idmapel);
-        return redirect()->back()->with('error', 'Data Nilai Berhasil Dihapus');
+        return redirect()->back()->with('deletenilaimapel', 'Data Nilai Berhasil Dihapus');
     }
     public function exportExcel()
     {
@@ -114,5 +124,20 @@ class SiswaController extends Controller
         $siswa = \App\Siswa::all();
         $pdf = PDF::loadView('export.siswapdf', ['siswa' => $siswa]);
         return $pdf->download('Siswa.pdf');
+    }
+
+    public function rubahpassword($id)
+    {
+        $siswa = \App\Siswa::find($id);
+        return view('siswa.editpas', ['siswa' => $siswa]);
+    }
+
+    public function updatepassword(Request $request, $id)
+    {
+        $user = \App\User::find($id);
+        $user->update([
+            'password' => bcrypt($request->password)
+        ]);
+        return redirect('/siswa')->with('updatepasssiswa', 'Password Siswa Berhasil Diupdate');
     }
 }

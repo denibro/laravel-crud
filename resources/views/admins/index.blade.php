@@ -5,15 +5,32 @@
 <div class="main">
     <div class="main-content">
         <div class="container-fluid">
+            @if (session('tambahadmin'))
+            <div class="alert alert-success" role="alert">
+                {{ session('tambahadmin') }}
+            </div>
+            @elseif (session('deleteadmin'))
+            <div class="alert alert-danger" role="alert">
+                {{ session('deleteadmin') }}
+            </div>
+            @elseif (session('updateadmin'))
+            <div class="alert alert-success" role="alert">
+                {{ session('updateadmin') }}
+            </div>
+            @elseif (session('updatepassadmin'))
+            <div class="alert alert-success" role="alert">
+                {{ session('updatepassadmin') }}
+            </div>
+            @endif
             <div class="row">
-                <div class="col-md-5">
+                <div class="col-md-8">
                     <div class="panel">
                         <div class="panel-heading">
                             <div class="container">
                             <h3 class="panel-title">Data admin</h3>
                             </div>
                             <div class="right">
-                                <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal">&nbsp&nbsp&nbspTambah Data admin &nbsp&nbsp<i class="lnr lnr-pencil"></i></button>
+                                <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal">&nbsp&nbsp&nbspTambah Data Admin &nbsp&nbsp<i class="lnr lnr-pencil"></i></button>
                             </div>
                         </div>
 
@@ -23,6 +40,7 @@
                                     <tr>
                                         <th>NO</th>
                                         <th>NAMA</th>
+                                        <th>EMAIL</th>
                                         <th class="text-center">AKSI</th>
                                     </tr>
                                 </thead>
@@ -36,10 +54,14 @@
                                     <tr>
                                         <td>{{ $nomor }}</td>
                                         <td>{{ $ad->nama }}</td>
+                                        <td>{{ $ad->user->email }}</td>
                                         <td>
                                             <a href="/admins/{{$ad->id}}/profile" class="btn btn-primary btn-sm">Profil</a>
                                             <a href="/admins/{{$ad->id}}/edit" class="btn btn-warning btn-sm">Edit</a>
-                                            <a href="/admins/{{$ad->id}}/delete" class="btn btn-danger btn-sm" onclick="return confirm('Yakin Mau Hapus..?')">Hapus</a></td>
+                                            {{--  <a href="/admins/{{$ad->id}}/delete" class="btn btn-danger btn-sm" onclick="return confirm('Yakin Mau Hapus..?')">Hapus</a>  --}}
+                                            <a href="#" class="btn btn-danger btn-sm deleteadmin" admin-id="{{ $ad->id }}" admin-nama="{{ $ad->nama }}">Hapus</a>
+                                            <a href="/admins/{{$ad->user->id}}/rubahpassword" class="btn btn-success btn-sm">Ganti Password</a>
+                                        </td>
                                     </tr>
                                     @php
                                     $nomor++;
@@ -62,7 +84,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="exampleModalLabel">Tambah Admin</h3>
+                <h3 class="modal-title" id="exampleModalLabel">Tambah Data Admin</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -93,7 +115,7 @@
                     <small id="emailHelp" class="form-text text-muted"></small>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-success">Submit</button>
+                    <button type="submit" class="btn btn-success">Tambah</button>
                     <button type="button" class="btn btn-info" data-dismiss="modal">Cencel</button>
                 </div>
             </form>
@@ -103,4 +125,26 @@
 <!-- akhir Modal admin-->
 
 @endsection
+
+@section('footer')
+    <script>
+        $('.deleteadmin').click(function(){
+            var admin_id = $(this).attr('admin-id');
+            var admin_nama = $(this).attr('admin-nama');
+            swal({
+                    title: "Yakin?",
+                    text: ""+admin_nama+" Mau Di Hapus !!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                    .then((willDelete) => {
+                    if (willDelete) {
+                        window.location = "/admins/"+admin_id+"/delete";
+                    }
+                });
+        });
+    </script>
+
+@stop
 

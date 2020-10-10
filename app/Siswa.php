@@ -39,4 +39,20 @@ class Siswa extends Model
     {
         return $this->nama_depan . ' ' . $this->nama_belakang;
     }
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
+    public function JumlahNilai()
+    {
+        $total = 0;
+        if ($this->mapel->isNotEmpty()) {
+            foreach ($this->mapel as $mapel) {
+                $total = $total + $mapel->pivot->nilai;
+            }
+        }
+        return $total;
+    }
 }
