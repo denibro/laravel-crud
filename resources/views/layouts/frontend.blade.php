@@ -53,7 +53,7 @@
                 </div>
                 <nav id="nav-menu-container">
                 <ul class="nav-menu">
-                    <li><a href="index.html">Home</a></li>
+                    <li><a href="/">Home</a></li>
                     <li><a href="about.html">About</a></li>
                     <li class="menu-has-children"><a href="">Blog</a>
                 <ul>

@@ -21,10 +21,20 @@
     // toastr
     <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
     // akhir toastr
-
+    // datatables.net
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+    // akhir datatables.net
 	<!-- ICONS -->
 	<link rel="apple-touch-icon" sizes="76x76" href="{{asset('admin/assets/img/apple-icon.png')}}">
     <link rel="icon" type="image/png" sizes="96x96" href="{{asset('admin/assets/img/favicon.png')}}">
+
+
+    // untuk tinggi cekeditor di halaman posting add
+    <style>
+        .ck-editor__editable_inline {
+            min-height: 250px;
+        }
+    </style>
 
     @yield('header')
 
@@ -64,6 +74,14 @@
 	<script src="{{asset('admin/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js')}}"></script>
 	<script src="{{asset('admin/assets/vendor/chartist/js/chartist.min.js')}}"></script>
     <script src="{{asset('admin/assets/scripts/klorofil-common.js')}}"></script>
+
+    {{--  datatables.net  --}}
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+    {{--  akhir datatables.net  --}}
+
+    {{--  cekeditor  --}}
+    <script src="{{asset('frontend/js/ckeditor.js')}}"></script>
+    {{--  akhir cekeditor  --}}
 
     {{--  // sweatalert  --}}
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

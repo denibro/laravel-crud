@@ -55,4 +55,48 @@ class Siswa extends Model
         }
         return $total;
     }
+
+    // untuk merubah huruf pertama jadi kapital ditampilkan di halaman index
+    public function getNamaDepanAttribute($value)
+    {
+        return ucwords($value);
+    }
+
+    public function getNamaBelakangAttribute($value)
+    {
+        return ucwords($value);
+    }
+
+    public function getAgamaAttribute($value)
+    {
+        return ucwords($value);
+    }
+
+    public function getAlamatAttribute($value)
+    {
+        return ucwords($value);
+    }
+    // akhir untuk merubah huruf pertama jadi kapital ditampilkan di halaman index
+
+    // untuk merubah huruf pertama jadi kapital ditampilkan di tabel
+    public function setNamaDepanAttribute($value)
+    {
+        $this->attributes['nama_depan'] = ucwords($value);
+    }
+
+    public function setNamaBelakangAttribute($value)
+    {
+        $this->attributes['nama_belakang'] = ucwords($value);
+    }
+
+    public function setAgamaAttribute($value)
+    {
+        $this->attributes['agama'] = ucwords($value);
+    }
+
+    public function setAlamatAttribute($value)
+    {
+        $this->attributes['alamat'] = ucwords($value);
+    }
+    // akhir untuk merubah huruf pertama jadi kapital ditampilkan di tabel
 }

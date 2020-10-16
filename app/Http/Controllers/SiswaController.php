@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use App\Exports\SiswaExport;
 use Maatwebsite\Excel\Facades\Excel;
 use PDF;
+use App\Siswa;
 
 
 class SiswaController extends Controller
@@ -17,7 +18,7 @@ class SiswaController extends Controller
         if ($request->has('cari')) {
             $data_siswa = \App\Siswa::where('nama_depan', 'LIKE', '%' . $request->cari . '%')->get();
         } else {
-            $data_siswa = \App\Siswa::all()->sortByDesc('id');
+            $data_siswa = \App\Siswa::all();
         }
         return view('siswa.index', ['data_siswa' => $data_siswa]);
     }
@@ -139,5 +140,32 @@ class SiswaController extends Controller
             'password' => bcrypt($request->password)
         ]);
         return redirect('/siswa')->with('updatepasssiswa', 'Password Siswa Berhasil Diupdate');
+    }
+
+    public function getdatasiswa()
+    {
+        $siswa = Siswa::select('siswa.*');
+        return \DataTables::eloquent($siswa)
+            ->addColumn('nama_lengkap', function ($s) {
+                return $s->nama_depan . ' ' .  $s->nama_belakang;
+            })
+            ->addColumn('rata2_nilai', function ($s) {
+                return $s->rataRataNilai();
+            })
+            ->addColumn('aksi', function ($s) {
+                return
+                    '<a href="/siswa/' . $s->id . '/profile" class="btn btn-primary btn-sm">Prof</a>' . ' ' .
+                    '<a href="/siswa/' . $s->id . '/edit" class="btn btn-warning btn sm">Edit</a>' . ' ' .
+                    '<a href="#" class="btn btn-danger btn-sm delete" siswa-id="' . $s->id . '" siswa-nama="' . $s->nama_lengkap() . '">Hapus</a>' . ' ' .
+                    '<a href="/siswa/' . $s->id . '/rubahpassword" class="btn btn-success btn-sm">Pass</a>';
+            })
+            ->rawColumns(['nama_lengkap', 'rata2_nilai', 'aksi'])
+            ->toJson();
+    }
+
+    public function importexcel(Request $request)
+    {
+        Excel::import(new \App\Imports\SiswaImport, $request->file('data_siswa'));
+        return redirect('/siswa')->with('updatepasssiswa', 'Import Data selesai');
     }
 }

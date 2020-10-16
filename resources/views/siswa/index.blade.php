@@ -26,29 +26,31 @@
                             <h3 class="panel-title">Data Siswa</h3>
                             </div>
                             <div class="right">
+                                <a href="" type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#importSiswa">&nbsp&nbsp&nbsp;Import Exel &nbsp&nbsp</a>
                                 <a href="/siswa/exportExcel" class="btn btn-primary btn-sm">Export Excel</a>
                                 <a href="/siswa/exportpdf" class="btn btn-primary btn-sm">Export PDF</a>
-                                <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal">&nbsp&nbsp&nbspTambah Data Siswa &nbsp&nbsp<i class="lnr lnr-pencil"></i></button>
+                                <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal">&nbsp&nbsp&nbsp;Tambah Data Siswa &nbsp&nbsp<i class="lnr lnr-pencil"></i></button>
                             </div>
                         </div>
 
                         <div class="panel-body">
-                            <table class="table table-hover">
+                            <table class="table table-hover" id="datatable">
                                 <thead>
                                     <tr>
-                                        <th>NO</th>
-                                        <th>NAMA DEPAN</th>
-                                        <th>NAMA BELAKANG</th>
-                                        <th>JENIS KELAMIN</th>
+                                        {{--  <th>NO</th>  --}}
+                                        <th>NAMA LENGKAP</th>
+                                        {{--  <th>NAMA DEP</th>
+                                        <th>NAMA BELAK</th>  --}}
+                                        <th>KELAMIN</th>
                                         <th>AGAMA</th>
                                         <th>ALAMAT</th>
-                                        <th>Rata Rata Nilai</th>
+                                        <th>Rata Rata</th>
                                         <th class="text-center">AKSI</th>
                                     </tr>
                                 </thead>
                                 <tbody>
 
-                                    @php
+                                    {{--  @php
                                         $nomor = 1;
                                     @endphp
                                     @foreach ($data_siswa as $siswa )
@@ -61,7 +63,7 @@
                                         <td>{{ $siswa->alamat }}</td>
                                         <td>{{ $siswa->rataRataNilai() }}</td>
                                         <td class="text-center">
-                                            <a href="/siswa/{{ $siswa->id }}/profile" class="btn btn-primary btn-sm">Profil</a>
+                                            <a href="/siswa/{{ $siswa->id }}/profile" class="btn btn-primary btn-sm">Prof</a>
                                             <a href="/siswa/{{ $siswa->id }}/edit" class="btn btn-warning btn-sm">Edit</a>
                                             <a href="#" class="btn btn-danger btn-sm delete" siswa-id="{{ $siswa->id }}" siswa-nama="{{ $siswa->nama_lengkap() }}">Hapus</a>
                                             <a href="/siswa/{{ $siswa->id }}/rubahpassword" class="btn btn-success btn-sm">Pass</a>
@@ -70,7 +72,7 @@
                                     @php
                                     $nomor++;
                                     @endphp
-                                    @endforeach
+                                    @endforeach  --}}
                                 </tbody>
                             </table>
                         </div>
@@ -144,27 +146,72 @@
 </div>
 <!-- akhir Modal siswa -->
 
+<!-- Modal import siswa -->
+<div class="modal fade" id="importSiswa" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">Import Data Siswa</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        <div class="modal-body">
+
+            <form action="{{ route('siswa.import') }}" method="POST" enctype="multipart/form-data">
+                {{ csrf_field() }}
+                <div class="form-group">
+                    <label>Import</label>
+                    <input type="file" class="form-control" aria-describedby="emailHelp" name="data_siswa">
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" value="Import" class="btn btn-primary btn-sm">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- akhir Modal import siswa -->
+
 @endsection
 
 
 @section('footer')
     <script>
-        $('.delete').click(function(){
-            var siswa_id = $(this).attr('siswa-id');
-            var siswa_nama = $(this).attr('siswa-nama');
-            swal({
-                    title: "Yakin?",
-                    text: ""+siswa_nama+" Mau Di Hapus !!",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                })
-                    .then((willDelete) => {
-                    if (willDelete) {
-                        window.location = "/siswa/"+siswa_id+"/delete";
-                    }
-                });
+        $(document).ready(function(){
+
+            $('#datatable').DataTable({
+                processing:true,
+                serverside:true,
+                ajax:"{{ route('ajax.get.data.siswa') }}",
+                columns:[
+                    {data:'nama_lengkap',name:'nama_lengkap'},
+                    {data:'jenis_kelamin',name:'jenis_kelamin'},
+                    {data:'agama',name:'agama'},
+                    {data:'alamat',name:'alamat'},
+                    {data:'rata2_nilai',name:'rata2_nilai'},
+                    {data:'aksi',name:'aksi'},
+                ]
+            });
+
+            $('body').on('click','.delete',function(){
+                var siswa_id = $(this).attr('siswa-id');
+                var siswa_nama_lengkap = $(this).attr('siswa-nama');
+                swal({
+                        title: "Yakin?",
+                        text: ""+siswa_nama_lengkap+" Mau Di Hapus !!",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                        .then((willDelete) => {
+                        if (willDelete) {
+                            window.location = "/siswa/"+siswa_id+"/delete";
+                        }
+                    });
+            });
         });
+
     </script>
 @stop
 

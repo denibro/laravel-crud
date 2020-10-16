@@ -46,10 +46,19 @@ Route::group(['middleware' => ['auth', 'checkRole:master,admin']], function () {
     Route::get('/siswa/{id}/{idmapel}/deletenilai', 'SiswaController@deletenilai');
     Route::get('/siswa/exportExcel', 'SiswaController@exportExcel');
     Route::get('/siswa/exportpdf', 'SiswaController@exportPdf');
+    Route::post('/siswa/import', 'SiswaController@importexcel')->name('siswa.import');
     Route::get('/guru/{id}/profile', 'GuruController@profile');
     Route::get('/siswa/{id}/rubahpassword', 'SiswaController@rubahpassword');
     Route::post('/siswa/{id}/updatepassword', 'SiswaController@updatepassword');
-    Route::get('/posts', 'PostController@index');
+    Route::get('/posts', 'PostController@index')->name('posts.index');
+    Route::get('post/add', [
+        'uses' => 'PostController@add',
+        'as' => 'posts.add',
+    ]);
+    Route::post('post/create', [
+        'uses' => 'PostController@create',
+        'as' => 'posts.create',
+    ]);
 });
 
 Route::group(['middleware' => ['auth', 'checkRole:master,admin,siswa']], function () {
@@ -58,6 +67,12 @@ Route::group(['middleware' => ['auth', 'checkRole:master,admin,siswa']], functio
     Route::post('/siswa/{idsiswa}/{iduser}/update', 'SiswaController@update');
     Route::get('/siswa/{id}/profile', 'SiswaController@profile');
 });
+
+Route::get('getdatasiswa', [
+    'uses' => 'SiswaController@getdatasiswa',
+    'as' => 'ajax.get.data.siswa',
+
+]);
 
 // tempatkan route ini harus paling bawah dari route yang lainnya
 Route::get('/{slug}', [
