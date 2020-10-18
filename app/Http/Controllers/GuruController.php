@@ -12,4 +12,9 @@ class GuruController extends Controller
         $guru = Guru::find($id);
         return view('guru.profile', ['guru' => $guru]);
     }
+
+    public function index()
+    {
+        return view('guru.index');
+    }
 }

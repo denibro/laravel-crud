@@ -48,6 +48,8 @@ Route::group(['middleware' => ['auth', 'checkRole:master,admin']], function () {
     Route::get('/siswa/exportpdf', 'SiswaController@exportPdf');
     Route::post('/siswa/import', 'SiswaController@importexcel')->name('siswa.import');
     Route::get('/guru/{id}/profile', 'GuruController@profile');
+    Route::get('/guru', 'GuruController@index');
+
     Route::get('/siswa/{id}/rubahpassword', 'SiswaController@rubahpassword');
     Route::post('/siswa/{id}/updatepassword', 'SiswaController@updatepassword');
     Route::get('/posts', 'PostController@index')->name('posts.index');
