@@ -50,6 +50,7 @@ Route::group(['middleware' => ['auth', 'checkRole:master,admin']], function () {
     Route::get('/guru/{id}/profile', 'GuruController@profile');
     Route::get('/guru', 'GuruController@index');
     Route::post('/guru/create', 'GuruController@create');
+    Route::get('/mapel', 'MapelController@index');
     Route::get('/siswa/{id}/rubahpassword', 'SiswaController@rubahpassword');
     Route::post('/siswa/{id}/updatepassword', 'SiswaController@updatepassword');
     Route::get('/posts', 'PostController@index')->name('posts.index');
