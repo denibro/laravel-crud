@@ -49,7 +49,7 @@ Route::group(['middleware' => ['auth', 'checkRole:master,admin']], function () {
     Route::post('/siswa/import', 'SiswaController@importexcel')->name('siswa.import');
     Route::get('/guru/{id}/profile', 'GuruController@profile');
     Route::get('/guru', 'GuruController@index');
-
+    Route::post('/guru/create', 'GuruController@create');
     Route::get('/siswa/{id}/rubahpassword', 'SiswaController@rubahpassword');
     Route::post('/siswa/{id}/updatepassword', 'SiswaController@updatepassword');
     Route::get('/posts', 'PostController@index')->name('posts.index');
@@ -61,14 +61,22 @@ Route::group(['middleware' => ['auth', 'checkRole:master,admin']], function () {
         'uses' => 'PostController@create',
         'as' => 'posts.create',
     ]);
+
+    Route::get('getdataguru', [
+        'uses' => 'GuruController@getdataguru',
+        'as' => 'ajax.get.data.guru',
+
+    ]);
 });
 
-Route::group(['middleware' => ['auth', 'checkRole:master,admin,siswa']], function () {
+Route::group(['middleware' => ['auth', 'checkRole:master,admin,siswa,guru']], function () {
     Route::get('/dashboard', 'DashboardController@index');
     Route::get('/siswa/{id}/edit', 'SiswaController@edit');
     Route::post('/siswa/{idsiswa}/{iduser}/update', 'SiswaController@update');
     Route::get('/siswa/{id}/profile', 'SiswaController@profile');
 });
+
+
 
 Route::get('getdatasiswa', [
     'uses' => 'SiswaController@getdatasiswa',

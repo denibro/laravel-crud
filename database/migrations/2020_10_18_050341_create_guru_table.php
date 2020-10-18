@@ -15,9 +15,14 @@ class CreateGuruTable extends Migration
     {
         Schema::create('guru', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->string('nama', 255);
             $table->string('telepon', 255);
-            $table->text('alamat');
+            $table->string('jenis_kelamin', 255);
+            $table->string('agama', 255);
+            $table->string('alamat', 255);
+            $table->string('avatar', 255)->nullable();
             $table->timestamps();
         });
     }

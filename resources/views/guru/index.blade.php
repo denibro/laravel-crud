@@ -23,13 +23,10 @@
                     <div class="panel">
                         <div class="panel-heading">
                             <div class="container">
-                            <h3 class="panel-title">Data Siswa</h3>
+                            <h3 class="panel-title">Data Guru</h3>
                             </div>
                             <div class="right">
-                                <a href="" type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#importSiswa">&nbsp&nbsp&nbsp;Import Exel &nbsp&nbsp</a>
-                                <a href="/siswa/exportExcel" class="btn btn-primary btn-sm">Export Excel</a>
-                                <a href="/siswa/exportpdf" class="btn btn-primary btn-sm">Export PDF</a>
-                                <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal">&nbsp&nbsp&nbsp;Tambah Data Siswa &nbsp&nbsp<i class="lnr lnr-pencil"></i></button>
+                                <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal">&nbsp&nbsp&nbsp;Tambah Guru &nbsp&nbsp<i class="lnr lnr-pencil"></i></button>
                             </div>
                         </div>
 
@@ -37,42 +34,16 @@
                             <table class="table table-hover" id="datatable">
                                 <thead>
                                     <tr>
-                                        {{--  <th>NO</th>  --}}
                                         <th>NAMA LENGKAP</th>
-                                        {{--  <th>NAMA DEP</th>
-                                        <th>NAMA BELAK</th>  --}}
-                                        <th>KELAMIN</th>
+                                        <th>TELEPON</th>
+                                        <th>JENIS_KELAMIN</th>
                                         <th>AGAMA</th>
                                         <th>ALAMAT</th>
-                                        <th>Rata Rata</th>
                                         <th class="text-center">AKSI</th>
                                     </tr>
                                 </thead>
                                 <tbody>
 
-                                    {{--  @php
-                                        $nomor = 1;
-                                    @endphp
-                                    @foreach ($data_siswa as $siswa )
-                                    <tr>
-                                        <td>{{ $nomor }}</td>
-                                        <td>{{ $siswa->nama_depan }}</td>
-                                        <td>{{ $siswa->nama_belakang }}</td>
-                                        <td>{{ $siswa->jenis_kelamin }}</td>
-                                        <td>{{ $siswa->agama }}</td>
-                                        <td>{{ $siswa->alamat }}</td>
-                                        <td>{{ $siswa->rataRataNilai() }}</td>
-                                        <td class="text-center">
-                                            <a href="/siswa/{{ $siswa->id }}/profile" class="btn btn-primary btn-sm">Prof</a>
-                                            <a href="/siswa/{{ $siswa->id }}/edit" class="btn btn-warning btn-sm">Edit</a>
-                                            <a href="#" class="btn btn-danger btn-sm delete" siswa-id="{{ $siswa->id }}" siswa-nama="{{ $siswa->nama_lengkap() }}">Hapus</a>
-                                            <a href="/siswa/{{ $siswa->id }}/rubahpassword" class="btn btn-success btn-sm">Pass</a>
-                                        </td>
-                                    </tr>
-                                    @php
-                                    $nomor++;
-                                    @endphp
-                                    @endforeach  --}}
                                 </tbody>
                             </table>
                         </div>
@@ -88,35 +59,32 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="exampleModalLabel">Tambah Data Siswa</h3>
+                <h3 class="modal-title" id="exampleModalLabel">Tambah Guru</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
         <div class="modal-body">
 
-            <form action="/siswa/create" method="POST">
+            <form action="/guru/create" method="POST">
                 {{ csrf_field() }}
                 <div class="form-group">
-                    <label for="namadepan">Nama Depan</label>
-                    <input type="text" class="form-control" id="namadepan" aria-describedby="emailHelp" placeholder="Nama Depan" name="nama_depan">
-                    <small id="emailHelp" class="form-text text-muted"></small>
-                </div>
-                <div class="form-group">
-                    <label for="namabelakang">Nama Belakang</label>
-                    <input type="text" class="form-control" id="namabelakang" aria-describedby="emailHelp" placeholder="Nama Belakang" name="nama_belakang">
-                    <small id="emailHelp" class="form-text text-muted"></small>
+                    <label for="namadepan">Nama</label>
+                    <input type="text" class="form-control" id="nama" aria-describedby="emailHelp" placeholder="Nama" name="nama">
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Email" name="email">
-                    <small id="emailHelp" class="form-text text-muted"></small>
                 </div>
                 <div class="form-group">
                     <label for="role">Role</label>
                     <select class="form-control" id="role" name="role">
-                    <option value="siswa">Siswa</option>
+                    <option value="guru">Guru</option>
                     </select>
+                </div>
+                <div class="form-group">
+                    <label for="telepon">Telepon</label>
+                    <input type="text" class="form-control" id="telepon" aria-describedby="emailHelp" placeholder="Telepon" name="telepon">
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlSelect1">Jenis Kelamin</label>
@@ -128,7 +96,6 @@
                 <div class="form-group">
                     <label for="agama">Agama</label>
                     <input type="text" class="form-control" id="agama" aria-describedby="emailHelp" placeholder="Agama" name="agama">
-                    <small id="emailHelp" class="form-text text-muted"></small>
                 </div>
                 <div class="form-group">
                     <label for="alamat">Alamat</label>
@@ -146,32 +113,6 @@
 </div>
 <!-- akhir Modal siswa -->
 
-<!-- Modal import siswa -->
-<div class="modal fade" id="importSiswa" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" id="exampleModalLabel">Import Data Siswa</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        <div class="modal-body">
-
-            <form action="{{ route('siswa.import') }}" method="POST" enctype="multipart/form-data">
-                {{ csrf_field() }}
-                <div class="form-group">
-                    <label>Import</label>
-                    <input type="file" class="form-control" aria-describedby="emailHelp" name="data_siswa">
-                </div>
-                <div class="modal-footer">
-                    <input type="submit" value="Import" class="btn btn-primary btn-sm">
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<!-- akhir Modal import siswa -->
 
 @endsection
 
@@ -183,13 +124,13 @@
             $('#datatable').DataTable({
                 processing:true,
                 serverside:true,
-                ajax:"{{ route('ajax.get.data.siswa') }}",
+                ajax:"{{ route('ajax.get.data.guru') }}",
                 columns:[
-                    {data:'nama_lengkap',name:'nama_lengkap'},
+                    {data:'nama',name:'nama'},
+                    {data:'telepon',name:'telepon'},
                     {data:'jenis_kelamin',name:'jenis_kelamin'},
                     {data:'agama',name:'agama'},
                     {data:'alamat',name:'alamat'},
-                    {data:'rata2_nilai',name:'rata2_nilai'},
                     {data:'aksi',name:'aksi'},
                 ]
             });
