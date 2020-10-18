@@ -51,6 +51,7 @@ Route::group(['middleware' => ['auth', 'checkRole:master,admin']], function () {
     Route::get('/guru', 'GuruController@index');
     Route::post('/guru/create', 'GuruController@create');
     Route::get('/mapel', 'MapelController@index');
+    Route::post('/mapel/create', 'MapelController@create');
     Route::get('/siswa/{id}/rubahpassword', 'SiswaController@rubahpassword');
     Route::post('/siswa/{id}/updatepassword', 'SiswaController@updatepassword');
     Route::get('/posts', 'PostController@index')->name('posts.index');
@@ -66,6 +67,12 @@ Route::group(['middleware' => ['auth', 'checkRole:master,admin']], function () {
     Route::get('getdataguru', [
         'uses' => 'GuruController@getdataguru',
         'as' => 'ajax.get.data.guru',
+
+    ]);
+
+    Route::get('getdatamapel', [
+        'uses' => 'MapelController@getdatamapel',
+        'as' => 'ajax.get.data.mapel',
 
     ]);
 });

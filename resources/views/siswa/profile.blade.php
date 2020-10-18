@@ -127,38 +127,7 @@
                         </div>
                         <div class="panel">
                             <div id="chartNilai">
-                                1
-                                <br>
-                                1
-                                <br>
-                                1
-                                <br>
-                                1
-                                <br>
-                                1
-                                <br>
-                                1
-                                <br>
-                                1
-                                <br>
-                                1
-                                <br>
-                                1
-                                <br>
-                                1
-                                <br>
-                                1
-                                <br>
-                                1
-                                <br>
-                                1
-                                <br>
-                                1
-                                <br>
-                                1
-                                <br>
-                                1
-                                <br>
+
                             </div>
 
                         </div>

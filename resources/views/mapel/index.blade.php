@@ -19,7 +19,7 @@
             </div>
             @endif
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-10">
                     <div class="panel">
                         <div class="panel-heading">
                             <div class="container">
@@ -34,11 +34,10 @@
                             <table class="table table-hover" id="datatable">
                                 <thead>
                                     <tr>
-                                        <th>NAMA LENGKAP</th>
-                                        <th>TELEPON</th>
-                                        <th>JENIS_KELAMIN</th>
-                                        <th>AGAMA</th>
-                                        <th>ALAMAT</th>
+                                        <th>KODE MAPEL</th>
+                                        <th>MAPEL</th>
+                                        <th>SEMESTER</th>
+                                        <th>GURU</th>
                                         <th class="text-center">AKSI</th>
                                     </tr>
                                 </thead>
@@ -66,42 +65,29 @@
             </div>
         <div class="modal-body">
 
-            <form action="/guru/create" method="POST">
+            <form action="/mapel/create" method="POST">
                 {{ csrf_field() }}
                 <div class="form-group">
-                    <label for="namadepan">Nama</label>
-                    <input type="text" class="form-control" id="nama" aria-describedby="emailHelp" placeholder="Nama" name="nama">
+                    <label for="kodemapel">Kode Mapel</label>
+                    <input type="text" class="form-control" id="kodemapel" aria-describedby="emailHelp" placeholder="Kode Mapel" name="kode">
                 </div>
                 <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Email" name="email">
+                    <label for="nama">Nama Pelajaran</label>
+                    <input type="text" class="form-control" id="nama" aria-describedby="emailHelp" placeholder="Nama Pelajaran" name="nama">
                 </div>
                 <div class="form-group">
-                    <label for="role">Role</label>
-                    <select class="form-control" id="role" name="role">
-                    <option value="guru">Guru</option>
+                    <label for="semester">Semester</label>
+                    <input type="text" class="form-control" id="semester" aria-describedby="emailHelp" placeholder="Semester" name="semester">
+                </div>
+                <div class="form-group">
+                    <label for="namaguru">Pilih Guru</label>
+                    <select class="form-control" id="namaguru" name="guru_id">
+                            <option value="">-Pilih-</option>
+                            @foreach ($guru as $g)
+                            <option value="{{ $g->id }}">{{ $g->nama }}</option>
+                            @endforeach
                     </select>
                 </div>
-                <div class="form-group">
-                    <label for="telepon">Telepon</label>
-                    <input type="text" class="form-control" id="telepon" aria-describedby="emailHelp" placeholder="Telepon" name="telepon">
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlSelect1">Jenis Kelamin</label>
-                    <select class="form-control" id="exampleFormControlSelect1" name="jenis_kelamin">
-                    <option value="L">Laki Laki</option>
-                    <option value="P">Perempuan</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="agama">Agama</label>
-                    <input type="text" class="form-control" id="agama" aria-describedby="emailHelp" placeholder="Agama" name="agama">
-                </div>
-                <div class="form-group">
-                    <label for="alamat">Alamat</label>
-                    <textarea class="form-control" id="alamat" rows="2" name="alamat"></textarea>
-                </div>
-
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-success">Tambah</button>
@@ -124,13 +110,11 @@
             $('#datatable').DataTable({
                 processing:true,
                 serverside:true,
-                ajax:"{{ route('ajax.get.data.guru') }}",
+                ajax:"{{ route('ajax.get.data.mapel') }}",
                 columns:[
+                    {data:'kode',name:'kode'},
                     {data:'nama',name:'nama'},
-                    {data:'telepon',name:'telepon'},
-                    {data:'jenis_kelamin',name:'jenis_kelamin'},
-                    {data:'agama',name:'agama'},
-                    {data:'alamat',name:'alamat'},
+                    {data:'semester',name:'semester'},
                     {data:'aksi',name:'aksi'},
                 ]
             });
