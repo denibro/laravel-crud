@@ -16,7 +16,7 @@ class CreateGuruTable extends Migration
         Schema::create('guru', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->string('nama', 255);
             $table->string('telepon', 255);
             $table->string('jenis_kelamin', 255);

@@ -16,9 +16,9 @@ class CreateMapelSiswaTable extends Migration
         Schema::create('mapel_siswa', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('mapel_id');
-            $table->foreign('mapel_id')->references('id')->on('mapel');
+            $table->foreign('mapel_id')->references('id')->on('mapel')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('siswa_id');
-            $table->foreign('siswa_id')->references('id')->on('siswa');
+            $table->foreign('siswa_id')->references('id')->on('siswa')->onUpdate('cascade')->onDelete('cascade');
             $table->integer('nilai');
 
             $table->timestamps();
