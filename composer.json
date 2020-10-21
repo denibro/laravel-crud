@@ -11,6 +11,10 @@
         "php": "^7.2",
         "barryvdh/laravel-dompdf": "^0.8.7",
         "cviebrock/eloquent-sluggable": "^6.0",
+<<<<<<< HEAD
+=======
+        "doctrine/dbal": "^2.11",
+>>>>>>> 1db09c7fb9f057969314083dad4edb7dd4d7873a
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^6.18.35",
         "laravel/helpers": "^1.3",

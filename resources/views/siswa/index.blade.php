@@ -42,7 +42,7 @@
                                         {{--  <th>NAMA DEP</th>
                                         <th>NAMA BELAK</th>  --}}
                                         <th>KELAMIN</th>
-                                        <th>AGAMA</th>
+                                        <th>AGAMAs</th>
                                         <th>ALAMAT</th>
                                         <th>Rata Rata</th>
                                         <th class="text-center">AKSI</th>

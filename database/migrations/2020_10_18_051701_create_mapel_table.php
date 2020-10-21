@@ -16,7 +16,7 @@ class CreateMapelTable extends Migration
         Schema::create('mapel', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('guru_id');
-            $table->foreign('guru_id')->references('id')->on('guru');
+            $table->foreign('guru_id')->references('id')->on('guru')->onUpdate('cascade')->onDelete('cascade');
             $table->string('kode', 255);
             $table->string('nama', 255);
             $table->string('semester', 255);
